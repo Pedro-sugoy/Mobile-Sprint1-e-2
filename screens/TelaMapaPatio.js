@@ -7,7 +7,13 @@ export default function TelaMapaPatio() {
       <Text style={styles.title}>Mapa do Pátio</Text>
       <Text style={styles.text}>Simulação visual da organização das motos no pátio.</Text>
       <Image
-        source={{ uri: 'https://via.placeholder.com/300x200.png?text=Mapa+do+Pátio' }}
+        source={require('../assets/patio.png')}
+        style={styles.image}
+        resizeMode="contain"
+      />
+      <Text style={styles.text}>Organização das motos no pátio.</Text>
+      <Image
+        source={require('../assets/patioIdeia.png')}
         style={styles.image}
         resizeMode="contain"
       />
@@ -18,7 +24,7 @@ export default function TelaMapaPatio() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
@@ -26,21 +32,18 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#333',
+    color: 'green',
     textAlign: 'center',
     marginBottom: 20,
   },
   text: {
     fontSize: 16,
-    color: '#555',
+    color: 'green',
     marginBottom: 20,
     textAlign: 'center',
   },
   image: {
-    width: 80,  
-    height: 200,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
+    width: 400,  
+    height: 200
   },
 });

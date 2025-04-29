@@ -35,7 +35,7 @@ export default function TelaDesenvolvedores() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f4f4f9',
+    backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
@@ -43,15 +43,15 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#3b3b3b',
+    color: 'green',
     marginBottom: 30,
     textTransform: 'uppercase',
   },
   developerContainer: {
-    backgroundColor: '#ffffff',
+    backgroundColor: 'black',
     borderRadius: 10,
     padding: 20,
-    shadowColor: '#000',
+    shadowColor: '#fff',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    color: '#555',
+    color: 'green',
     marginBottom: 12,
     fontFamily: 'Roboto',
   },

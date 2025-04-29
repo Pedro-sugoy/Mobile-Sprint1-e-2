@@ -35,18 +35,22 @@ export default function TelaListaMotos() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: 'black',
     paddingTop: 20,
     paddingHorizontal: 20,
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#333',
+    color: 'green',
     textAlign: 'center',
     marginBottom: 20,
   },
   list: {
     paddingBottom: 20,
   },
+  card:{
+    backgroundColor:'black',
+    color:'black'
+  }
 });

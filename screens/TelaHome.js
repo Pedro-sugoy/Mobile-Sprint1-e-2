@@ -1,9 +1,14 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
 export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
+      <Image 
+        source={require("../assets/mottu_Logo.jpg")}
+        style={styles.image} 
+      />
+
       <Text style={styles.title}>Bem-vindo!</Text>
       <Text style={styles.text}>
         Um App para achar com mais facilidade as motos nos patios.
@@ -45,21 +50,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f8f8f8',
+    backgroundColor: 'black',
     padding: 20,
   },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#2E3A59',
+    color: 'green',
     textAlign: 'center',
   },
   text: {
     fontSize: 18,
     textAlign: 'center',
     marginBottom: 30,
-    color: '#555',
+    color: 'green',
   },
   button: {
     backgroundColor: '#4CAF50',
@@ -69,6 +74,13 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     width: '80%',
     alignItems: 'center',
+  },
+  image: {
+    width: 80, 
+    height: 80,
+    borderRadius: 40, 
+    marginBottom: 15,
+    alignSelf:"left",
   },
   buttonText: {
     color: '#fff',
