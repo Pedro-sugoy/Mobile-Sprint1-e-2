@@ -1,26 +1,39 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Picker } from '@react-native-picker/picker'; 
+import { Picker } from '@react-native-picker/picker';
 
 export default function TelaCadastroMoto({ onMotoCadastrada }) {
   const [placa, setPlaca] = useState('');
   const [status, setStatus] = useState('');
+  const [modelo, setModelo] = useState('');
+
+  function validarPlaca(placa) {
+    const regex = /^[A-Za-z0-9]{7}$/;
+    return regex.test(placa);
+  }
 
   async function salvarMoto() {
-    if (placa && status) {
-      const novaMoto = { placa, status };
-      const motosSalvas = await AsyncStorage.getItem('motos');
-      const motos = motosSalvas ? JSON.parse(motosSalvas) : [];
-      motos.push(novaMoto);
-      await AsyncStorage.setItem('motos', JSON.stringify(motos));
-      onMotoCadastrada(); 
-      alert('Moto cadastrada com sucesso!');
-      setPlaca('');
-      setStatus('');
-    } else {
-      alert('Preencha todos os campos.');
+    if (!placa || !status || !modelo) {
+      Alert.alert('Erro', 'Preencha todos os campos.');
+      return;
     }
+
+    if (!validarPlaca(placa)) {
+      Alert.alert('Erro', 'A placa deve conter exatamente 7 caracteres alfanuméricos.');
+      return;
+    }
+
+    const novaMoto = { placa, status, modelo };
+    const motosSalvas = await AsyncStorage.getItem('motos');
+    const motos = motosSalvas ? JSON.parse(motosSalvas) : [];
+    motos.push(novaMoto);
+    await AsyncStorage.setItem('motos', JSON.stringify(motos));
+    onMotoCadastrada();
+    Alert.alert('Sucesso', 'Moto cadastrada com sucesso!');
+    setPlaca('');
+    setStatus('');
+    setModelo('');
   }
 
   return (
@@ -28,10 +41,12 @@ export default function TelaCadastroMoto({ onMotoCadastrada }) {
       <Text style={styles.title}>Cadastrar Nova Moto🏍️</Text>
 
       <TextInput
-        placeholder="Placa da Moto"
+        placeholder="Placa da Moto (7 caracteres)"
         value={placa}
         onChangeText={setPlaca}
         style={styles.input}
+        maxLength={7}
+        autoCapitalize="characters"
       />
 
       <Text style={styles.label}>Status</Text>
@@ -40,9 +55,23 @@ export default function TelaCadastroMoto({ onMotoCadastrada }) {
         onValueChange={(itemValue) => setStatus(itemValue)}
         style={styles.input}
       >
+        <Picker.Item label="Selecione um status" value="" />
+        <Picker.Item label="Ligado" value="ligado" />
         <Picker.Item label="Desligado" value="desligado" />
         <Picker.Item label="Manutenção" value="manutencao" />
         <Picker.Item label="Disponível" value="disponivel" />
+      </Picker>
+
+      <Text style={styles.label}>Modelo</Text>
+      <Picker
+        selectedValue={modelo}
+        onValueChange={(itemValue) => setModelo(itemValue)}
+        style={styles.input}
+      >
+        <Picker.Item label="Selecione um modelo" value="" />
+        <Picker.Item label="Moto Sport" value="moto_sport" />
+        <Picker.Item label="Moto E" value="moto_e" />
+        <Picker.Item label="Moto Pop" value="moto_pop" />
       </Picker>
 
       <TouchableOpacity style={styles.button} onPress={salvarMoto}>
