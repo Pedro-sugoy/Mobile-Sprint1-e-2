@@ -1,114 +1,65 @@
-import React, { useState, useEffect } from 'react';
-import { FlatList, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function TelaMotos() {
-  const [motos, setMotos] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    async function loadMotos() {
-      const motosSalvas = await AsyncStorage.getItem('motos');
-      let motosList = motosSalvas ? JSON.parse(motosSalvas) : [];
-
-      motosList = motosList.filter((value, index, self) =>
-        index === self.findIndex((t) => t.placa === value.placa)
-      );
-
-      setMotos(motosList);
-      setIsLoading(false);
-    }
-    loadMotos();
-  }, []);
-
-  const handleDelete = async (placaToDelete) => {
-    const updatedMotos = motos.filter(moto => moto.placa !== placaToDelete);
-    await AsyncStorage.setItem('motos', JSON.stringify(updatedMotos));
-    setMotos(updatedMotos);
-    alert('Moto removida com sucesso!');
-  };
-
-  const renderMoto = ({ item }) => {
-    let statusText;
-
-    switch (item.status) {
+export default function MotoCard({ placa, modelo, status, onDelete }) {
+  const getStatusText = (status) => {
+    switch (status) {
       case 'ligado':
-        statusText = 'Ligado';
-        break;
+        return 'Ligado';
       case 'desligado':
-        statusText = 'Desligado';
-        break;
+        return 'Desligado';
       case 'manutencao':
-        statusText = 'Em Manutenção';
-        break;
+        return 'Em Manutenção';
       case 'disponivel':
-        statusText = 'Disponível';
-        break;
+        return 'Disponível';
       default:
-        statusText = 'Status Desconhecido';
+        return 'Status Desconhecido';
     }
-
-    let modeloFormatado = '';
-    switch (item.modelo) {
-      case 'moto_sport':
-        modeloFormatado = 'Moto Sport';
-        break;
-      case 'moto_e':
-        modeloFormatado = 'Moto E';
-        break;
-      case 'moto_pop':
-        modeloFormatado = 'Moto Pop';
-        break;
-      default:
-        modeloFormatado = 'Modelo Desconhecido';
-    }
-
-    return (
-      <View style={styles.card}>
-        <Text style={styles.texto}>Placa: {item.placa}</Text>
-        <Text style={styles.texto}>Status: {statusText}</Text>
-        <Text style={styles.texto}>Modelo: {modeloFormatado}</Text>
-
-        <TouchableOpacity
-          style={styles.buttonDelete}
-          onPress={() => handleDelete(item.placa)}
-        >
-          <Text style={styles.buttonText}>Apagar Moto</Text>
-        </TouchableOpacity>
-      </View>
-    );
   };
 
-  if (isLoading) {
-    return <Text style={styles.loadingText}>Carregando motos...</Text>;
-  }
+  const getModeloText = (modelo) => {
+    switch (modelo) {
+      case 'moto_sport':
+        return 'Moto Sport';
+      case 'moto_e':
+        return 'Moto E';
+      case 'moto_pop':
+        return 'Moto Pop';
+      default:
+        return 'Modelo Desconhecido';
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      const storedMotos = await AsyncStorage.getItem('motos');
+      let motos = storedMotos ? JSON.parse(storedMotos) : [];
+
+      motos = motos.filter((moto) => moto.placa !== placa);
+      await AsyncStorage.setItem('motos', JSON.stringify(motos));
+
+      Alert.alert('Sucesso', 'Moto removida com sucesso!');
+      if (onDelete) onDelete(); // atualiza a lista no componente pai
+    } catch (error) {
+      Alert.alert('Erro', 'Erro ao remover a moto.');
+    }
+  };
 
   return (
-    <View style={styles.container}>
-      {motos.length === 0 ? (
-        <Text style={styles.noMotosText}>Nenhuma moto cadastrada.</Text>
-      ) : (
-        <FlatList
-          data={motos}
-          keyExtractor={(item) => item.placa}
-          renderItem={renderMoto}
-          style={styles.list}
-        />
-      )}
+    <View style={styles.card}>
+      <Text style={styles.texto}>Placa: {placa}</Text>
+      <Text style={styles.texto}>Status: {getStatusText(status)}</Text>
+      <Text style={styles.texto}>Modelo: {getModeloText(modelo)}</Text>
+
+      <TouchableOpacity style={styles.buttonDelete} onPress={handleDelete}>
+        <Text style={styles.buttonText}>Apagar Moto</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'black',
-    padding: 20,
-    justifyContent: 'flex-start',
-  },
-  list: {
-    marginTop: 30,
-  },
   card: {
     backgroundColor: 'black',
     padding: 15,
@@ -137,15 +88,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  loadingText: {
-    fontSize: 18,
-    textAlign: 'center',
-    marginTop: 20,
-  },
-  noMotosText: {
-    fontSize: 18,
-    textAlign: 'center',
-    marginTop: 20,
-    color: '#777',
-  },
 });
+
+

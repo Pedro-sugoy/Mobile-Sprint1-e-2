@@ -1,33 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useCallback } from 'react';
 import { View, Text, FlatList, StyleSheet, SafeAreaView } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import MotoCard from '../components/CardMoto';
+import CardMoto from '../components/CardMoto';
+
+
 
 export default function TelaListaMotos() {
   const [motos, setMotos] = useState([]);
 
-  useEffect(() => {
-    async function carregarMotos() {
-      const motosSalvas = await AsyncStorage.getItem('motos');
-      if (motosSalvas) {
-        setMotos(JSON.parse(motosSalvas));
+  useFocusEffect(
+    useCallback(() => {
+      async function carregarMotos() {
+        const motosSalvas = await AsyncStorage.getItem('motos');
+        const lista = motosSalvas ? JSON.parse(motosSalvas) : [];
+        console.log('Motos carregadas do AsyncStorage:', lista);
+        setMotos(lista);
       }
-    }
-    
-    carregarMotos();
-  }, []);
+      carregarMotos();
+    }, [])
+  );
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Lista de Motos🛵</Text>
       <FlatList
         data={motos}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item) => item.placa}
         renderItem={({ item }) => (
-          <MotoCard modelo={item.modelo} placa={item.placa} zona={item.zona} />
-        )}
-        contentContainerStyle={styles.list}
-      />
+        <View>
+          <CardMoto modelo={item.modelo} placa={item.placa} zona={item.zona} />
+        </View>
+  )}
+  contentContainerStyle={styles.list}
+/>
+
     </SafeAreaView>
   );
 }

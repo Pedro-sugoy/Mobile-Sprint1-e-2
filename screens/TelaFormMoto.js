@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'reac
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Picker } from '@react-native-picker/picker';
 
-export default function TelaCadastroMoto({ onMotoCadastrada }) {
+export default function TelaCadastroMoto() {
   const [placa, setPlaca] = useState('');
   const [status, setStatus] = useState('');
   const [modelo, setModelo] = useState('');
@@ -26,8 +26,10 @@ export default function TelaCadastroMoto({ onMotoCadastrada }) {
 
     const novaMoto = { placa, status, modelo };
     const motosSalvas = await AsyncStorage.getItem('motos');
+   
     const motos = motosSalvas ? JSON.parse(motosSalvas) : [];
     motos.push(novaMoto);
+    //console.log(motos)
     await AsyncStorage.setItem('motos', JSON.stringify(motos));
     onMotoCadastrada();
     Alert.alert('Sucesso', 'Moto cadastrada com sucesso!');
