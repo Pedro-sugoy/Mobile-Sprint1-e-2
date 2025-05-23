@@ -39,8 +39,7 @@ export default function MotoCard({ placa, modelo, status, onDelete }) {
       motos = motos.filter((moto) => moto.placa !== placa);
       await AsyncStorage.setItem('motos', JSON.stringify(motos));
 
-      Alert.alert('Sucesso', 'Moto removida com sucesso!');
-      if (onDelete) onDelete(); // atualiza a lista no componente pai
+      if (onDelete) onDelete(); 
     } catch (error) {
       Alert.alert('Erro', 'Erro ao remover a moto.');
     }
