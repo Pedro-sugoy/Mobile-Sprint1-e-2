@@ -6,8 +6,6 @@
 
 *COMO RODAR O PROGRAMA LOCALMENTE
 
-(QUANDO DELETAR UMA MOTO DA LISTA, TEM QUE SAIR E ENTRAR NA TELA DA LISTA PARA PODER ATUALIZAR)
-
 =1- Clone o repositorio usando o "Git Bash Here", "Visual Studio Code" ou baixe o zip do projeto
 
 *Git Bash Here:
