@@ -23,6 +23,13 @@ export default function HomeScreen({ navigation }) {
 
       <TouchableOpacity
         style={styles.button}
+        onPress={() => navigation.navigate('Cadastro')}
+      >
+        <Text style={styles.buttonText}>Cadastro</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
         onPress={() => navigation.navigate('Cadastro de Moto')}
       >
         <Text style={styles.buttonText}>Cadastrar Moto</Text>
