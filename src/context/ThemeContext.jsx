@@ -37,11 +37,11 @@ export function ThemeProvider({ children }) {
     },
     dark: {
       background: "#000",
-      text: "#00FF00",
-      button: "#0bf359ff",
+      text: "#4CAF50",
+      button: "#4CAF50",
       buttonText: "#000",
       inputBackground: "#222", 
-      inputBorder: "#00FF00",
+      inputBorder: "#4CAF50",
     },
   };
 
