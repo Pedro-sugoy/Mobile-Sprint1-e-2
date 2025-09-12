@@ -15,10 +15,12 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    // ThemeProvider precisa envolver o NavigationContainer
     <ThemeProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Início">
+        <Stack.Navigator
+          initialRouteName="Início"
+          screenOptions={{ headerShown: false }} // remove o header de todas as telas
+        >
           <Stack.Screen name="Início" component={HomeScreen} />
           <Stack.Screen name="Desenvolvedores" component={DesenvolvedoresScreen} />
           <Stack.Screen name="Cadastro" component={TelaCadastro} />
