@@ -1,33 +1,36 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useTranslation } from 'react-i18next';
 
 export default function MotoCard({ placa, modelo, status, onDelete }) {
+  const { t } = useTranslation();
+
   const getStatusText = (status) => {
     switch (status) {
       case 'ligado':
-        return 'Ligado';
+        return t('ligado');
       case 'desligado':
-        return 'Desligado';
+        return t('desligado');
       case 'manutencao':
-        return 'Em Manutenção';
+        return t('emManutencao');
       case 'disponivel':
-        return 'Disponível';
+        return t('disponivel');
       default:
-        return 'Status Desconhecido';
+        return t('statusDesconhecido');
     }
   };
 
   const getModeloText = (modelo) => {
     switch (modelo) {
       case 'moto_sport':
-        return 'Moto Sport';
+        return t('motoSport');
       case 'moto_e':
-        return 'Moto E';
+        return t('motoE');
       case 'moto_pop':
-        return 'Moto Pop';
+        return t('motoPop');
       default:
-        return 'Modelo Desconhecido';
+        return t('modeloDesconhecido');
     }
   };
 
@@ -41,18 +44,18 @@ export default function MotoCard({ placa, modelo, status, onDelete }) {
 
       if (onDelete) onDelete(); 
     } catch (error) {
-      Alert.alert('Erro', 'Erro ao remover a moto.');
+      Alert.alert(t('erro'), t('erroRemoverMoto'));
     }
   };
 
   return (
     <View style={styles.card}>
-      <Text style={styles.texto}>Placa: {placa}</Text>
-      <Text style={styles.texto}>Status: {getStatusText(status)}</Text>
-      <Text style={styles.texto}>Modelo: {getModeloText(modelo)}</Text>
+      <Text style={styles.texto}>{t('placa')}: {placa}</Text>
+      <Text style={styles.texto}>{t('status')}: {getStatusText(status)}</Text>
+      <Text style={styles.texto}>{t('modelo')}: {getModeloText(modelo)}</Text>
 
       <TouchableOpacity style={styles.buttonDelete} onPress={handleDelete}>
-        <Text style={styles.buttonText}>Apagar Moto</Text>
+        <Text style={styles.buttonText}>{t('apagarMoto')}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -88,5 +91,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
-

@@ -1,22 +1,15 @@
-import React from 'react';
+import React, { useTransition } from 'react';
 import { View, Text, Image, StyleSheet, SafeAreaView } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 export default function TelaMapaPatio() {
+
+  const {t} = useTranslation();
+
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Mapa do Pátio</Text>
-      <Text style={styles.text}>Simulação visual da organização das motos no pátio.</Text>
-      <Image
-        source={require('../assets/patio.png')}
-        style={styles.image}
-        resizeMode="contain"
-      />
-      <Text style={styles.text}>Organização das motos no pátio.</Text>
-      <Image
-        source={require('../assets/patioIdeia.png')}
-        style={styles.image}
-        resizeMode="contain"
-      />
+      <Text style={styles.title}>{t("Mapa do Pátio")}</Text>
+      
     </SafeAreaView>
   );
 }

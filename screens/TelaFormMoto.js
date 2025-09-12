@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Picker } from '@react-native-picker/picker';
+import { useTranslation } from 'react-i18next';
 
 export default function TelaCadastroMoto() {
   const [placa, setPlaca] = useState('');
   const [status, setStatus] = useState('');
   const [modelo, setModelo] = useState('');
+
+  const {t} = useTranslation();
 
   function validarPlaca(placa) {
     const regex = /^[A-Za-z0-9]{7}$/;
@@ -40,10 +43,10 @@ export default function TelaCadastroMoto() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Cadastrar Nova Moto🏍️</Text>
+      <Text style={styles.title}>{t("Cadastrar Nova Moto")}🏍️</Text>
 
       <TextInput
-        placeholder="Placa da Moto (7 caracteres)"
+        placeholder={t("placeholderPlaca")}
         value={placa}
         onChangeText={setPlaca}
         style={styles.input}
@@ -51,34 +54,37 @@ export default function TelaCadastroMoto() {
         autoCapitalize="characters"
       />
 
-      <Text style={styles.label}>Status</Text>
+
+      <Text style={styles.label}>{t("status")}</Text>
       <Picker
         selectedValue={status}
         onValueChange={(itemValue) => setStatus(itemValue)}
         style={styles.input}
       >
-        <Picker.Item label="Selecione um status" value="" />
-        <Picker.Item label="Ligado" value="ligado" />
-        <Picker.Item label="Desligado" value="desligado" />
-        <Picker.Item label="Manutenção" value="manutencao" />
-        <Picker.Item label="Disponível" value="disponivel" />
+        <Picker.Item label={t("selecione Status")} value="" />
+        <Picker.Item label={t("ligado")} value="ligado" />
+        <Picker.Item label={t("desligado")} value="desligado" />
+        <Picker.Item label={t("manutencao")} value="manutencao" />
+        <Picker.Item label={t("disponivel")} value="disponivel" />
       </Picker>
 
-      <Text style={styles.label}>Modelo</Text>
+
+      <Text style={styles.label}>{t("modelo")}</Text>
       <Picker
         selectedValue={modelo}
         onValueChange={(itemValue) => setModelo(itemValue)}
         style={styles.input}
       >
-        <Picker.Item label="Selecione um modelo" value="" />
-        <Picker.Item label="Moto Sport" value="moto_sport" />
-        <Picker.Item label="Moto E" value="moto_e" />
-        <Picker.Item label="Moto Pop" value="moto_pop" />
+        <Picker.Item label={t("selecioneModelo")} value="" />
+        <Picker.Item label={t("motoSport")} value="moto_sport" />
+        <Picker.Item label={t("motoE")} value="moto_e" />
+        <Picker.Item label={t("motoPop")} value="moto_pop" />
       </Picker>
 
       <TouchableOpacity style={styles.button} onPress={salvarMoto}>
-        <Text style={styles.buttonText}>Salvar Moto</Text>
+        <Text style={styles.buttonText}>{t("salvarMoto")}</Text>
       </TouchableOpacity>
+
     </View>
   );
 }

@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useTransition } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import i18n from '../src/services/i18n';
+import { useTranslation } from 'react-i18next';
 
 export default function TelaCadastro() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [setor, setSetor] = useState('');
+
+  const {t} = useTranslation()
 
   const handleCadastro = () => {
     console.log({ nome, email, senha, setor });
@@ -14,12 +18,12 @@ export default function TelaCadastro() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Cadastro 📝</Text>
+      <Text style={styles.title}>{t("Cadastro")} 📝</Text>
 
       <View style={styles.formContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Nome"
+          placeholder={t("Nome")}
           placeholderTextColor="gray"
           value={nome}
           onChangeText={setNome}
@@ -27,7 +31,7 @@ export default function TelaCadastro() {
 
         <TextInput
           style={styles.input}
-          placeholder="Email"
+          placeholder={t("Email")}
           placeholderTextColor="gray"
           keyboardType="email-address"
           autoCapitalize="none"
@@ -37,7 +41,7 @@ export default function TelaCadastro() {
 
         <TextInput
           style={styles.input}
-          placeholder="Senha"
+          placeholder={t("Senha")}
           placeholderTextColor="gray"
           secureTextEntry
           value={senha}
@@ -46,14 +50,14 @@ export default function TelaCadastro() {
 
         <TextInput
           style={styles.input}
-          placeholder="Setor"
+          placeholder={t("Setor")}
           placeholderTextColor="gray"
           value={setor}
           onChangeText={setSetor}
         />
 
         <TouchableOpacity style={styles.button} onPress={handleCadastro}>
-          <Text style={styles.buttonText}>Entrar</Text>
+          <Text style={styles.buttonText}>{t("ENTRAR")}</Text>
         </TouchableOpacity>
 
       </View>

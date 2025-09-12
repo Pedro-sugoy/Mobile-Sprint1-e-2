@@ -1,32 +1,42 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 export default function TelaDesenvolvedores() {
+  const { t } = useTranslation();
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Desenvolvedores👨‍💻</Text>
+      <Text style={styles.title}>{t("DESENVOLVEDORES")}👨‍💻</Text>
+
       <View style={styles.developerContainer}>
         <Image 
           source={require('../assets/pedro.jpg')} 
           style={styles.image}
         />
-        <Text style={styles.text}>Nome Pedro Manzo Yokoo - RM556115</Text>
+        <Text style={styles.text}>
+          {t("Nome")} Pedro Manzo Yokoo - RM556115
+        </Text>
       </View>
 
       <View style={styles.developerContainer}>
-      <Image 
+        <Image 
           source={require('../assets/fernando.jpg')}
           style={styles.image}
         />
-        <Text style={styles.text}>Nome Fernando Fernandes Prado - RM557982</Text>
+        <Text style={styles.text}>
+          {t("Nome")} Fernando Fernandes Prado - RM557982
+        </Text>
       </View>
 
       <View style={styles.developerContainer}>
-      <Image 
+        <Image 
           source={require('../assets/guilherme.jpg')}
           style={styles.image}
         />
-        <Text style={styles.text}>Nome Guilherme Camasmie Laiber de Jesus - RM554894</Text>
+        <Text style={styles.text}>
+          {t("Nome")} Guilherme Camasmie Laiber de Jesus - RM554894
+        </Text>
       </View>
     </View>
   );

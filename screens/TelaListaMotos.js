@@ -3,9 +3,12 @@ import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
 import { FlatList, SafeAreaView, StyleSheet, Text } from 'react-native';
 import MotoCard from '../src/components/CardMoto'; 
+import { useTranslation } from 'react-i18next';
 
 export default function TelaListaMotos() {
   const [motos, setMotos] = useState([]);
+
+  const {t} = useTranslation()
 
   const carregarMotos = async () => {
     const motosSalvas = await AsyncStorage.getItem('motos');
@@ -21,7 +24,7 @@ export default function TelaListaMotos() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Lista de Motos 🛵</Text>
+      <Text style={styles.title}>{t("Lista de Motos")}🛵</Text>
       <FlatList
         data={motos}
         keyExtractor={(item) => item.placa}
