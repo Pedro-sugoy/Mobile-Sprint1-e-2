@@ -27,7 +27,7 @@ export default function HomeScreen({ navigation }) {
       </View>
 
       <Image 
-        source={require("../assets/mottu_Logo.jpg")}
+        source={require("../assets/mottu_Logo.png")}
         style={styles.image} 
       />
 
