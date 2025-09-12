@@ -1,7 +1,7 @@
-import React, { useState, useTransition } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import i18n from '../src/services/i18n';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../src/context/ThemeContext';
 
 export default function TelaCadastro() {
   const [nome, setNome] = useState('');
@@ -9,20 +9,21 @@ export default function TelaCadastro() {
   const [senha, setSenha] = useState('');
   const [setor, setSetor] = useState('');
 
-  const {t} = useTranslation()
+  const { t } = useTranslation();
+  const { colors } = useTheme(); 
 
   const handleCadastro = () => {
     console.log({ nome, email, senha, setor });
-    alert('Cadastro realizado com sucesso!');
+    alert(t("Cadastro realizado com sucesso!"));
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{t("Cadastro")} 📝</Text>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <Text style={[styles.title, { color: colors.text }]}>{t("Cadastro")} 📝</Text>
 
       <View style={styles.formContainer}>
         <TextInput
-          style={styles.input}
+          style={[styles.input, { borderColor: colors.text, color: colors.text }]}
           placeholder={t("Nome")}
           placeholderTextColor="gray"
           value={nome}
@@ -30,7 +31,7 @@ export default function TelaCadastro() {
         />
 
         <TextInput
-          style={styles.input}
+          style={[styles.input, { borderColor: colors.text, color: colors.text }]}
           placeholder={t("Email")}
           placeholderTextColor="gray"
           keyboardType="email-address"
@@ -40,7 +41,7 @@ export default function TelaCadastro() {
         />
 
         <TextInput
-          style={styles.input}
+          style={[styles.input, { borderColor: colors.text, color: colors.text }]}
           placeholder={t("Senha")}
           placeholderTextColor="gray"
           secureTextEntry
@@ -49,17 +50,16 @@ export default function TelaCadastro() {
         />
 
         <TextInput
-          style={styles.input}
+          style={[styles.input, { borderColor: colors.text, color: colors.text }]}
           placeholder={t("Setor")}
           placeholderTextColor="gray"
           value={setor}
           onChangeText={setSetor}
         />
 
-        <TouchableOpacity style={styles.button} onPress={handleCadastro}>
-          <Text style={styles.buttonText}>{t("ENTRAR")}</Text>
+        <TouchableOpacity style={[styles.button, { backgroundColor: colors.button }] } onPress={handleCadastro}>
+          <Text style={[styles.buttonText, { color: colors.buttonText }]}>{t("ENTRAR")}</Text>
         </TouchableOpacity>
-
       </View>
     </View>
   );
@@ -68,7 +68,6 @@ export default function TelaCadastro() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
@@ -76,12 +75,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: 'green',
     marginBottom: 30,
     textTransform: 'uppercase',
   },
   formContainer: {
-    backgroundColor: 'black',
     borderRadius: 10,
     padding: 20,
     shadowColor: '#fff',
@@ -94,22 +91,18 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: 'green',
     borderRadius: 8,
     padding: 12,
     marginBottom: 15,
-    color: 'white',
     fontSize: 16,
   },
   button: {
-    backgroundColor: 'green',
     borderRadius: 8,
     padding: 15,
     alignItems: 'center',
     marginTop: 10,
   },
   buttonText: {
-    color: 'black',
     fontWeight: 'bold',
     fontSize: 18,
     textTransform: 'uppercase',

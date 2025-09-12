@@ -1,41 +1,43 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../src/context/ThemeContext';
 
 export default function TelaDesenvolvedores() {
   const { t } = useTranslation();
+  const { colors } = useTheme();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{t("DESENVOLVEDORES")}👨‍💻</Text>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <Text style={[styles.title, { color: colors.text }]}>{t("DESENVOLVEDORES")}👨‍💻</Text>
 
-      <View style={styles.developerContainer}>
+      <View style={[styles.developerContainer, { backgroundColor: colors.background }]}>
         <Image 
           source={require('../assets/pedro.jpg')} 
           style={styles.image}
         />
-        <Text style={styles.text}>
-          {t("Nome")} Pedro Manzo Yokoo - RM556115
+        <Text style={[styles.text, { color: colors.text }]}>
+          {t("Nome")}: Pedro Manzo Yokoo - RM556115
         </Text>
       </View>
 
-      <View style={styles.developerContainer}>
+      <View style={[styles.developerContainer, { backgroundColor: colors.background }]}>
         <Image 
           source={require('../assets/fernando.jpg')}
           style={styles.image}
         />
-        <Text style={styles.text}>
-          {t("Nome")} Fernando Fernandes Prado - RM557982
+        <Text style={[styles.text, { color: colors.text }]}>
+          {t("Nome")}: Fernando Fernandes Prado - RM557982
         </Text>
       </View>
 
-      <View style={styles.developerContainer}>
+      <View style={[styles.developerContainer, { backgroundColor: colors.background }]}>
         <Image 
           source={require('../assets/guilherme.jpg')}
           style={styles.image}
         />
-        <Text style={styles.text}>
-          {t("Nome")} Guilherme Camasmie Laiber de Jesus - RM554894
+        <Text style={[styles.text, { color: colors.text }]}>
+          {t("Nome")}: Guilherme Camasmie Laiber de Jesus - RM554894
         </Text>
       </View>
     </View>
@@ -45,7 +47,6 @@ export default function TelaDesenvolvedores() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
@@ -53,12 +54,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: 'green',
     marginBottom: 30,
     textTransform: 'uppercase',
   },
   developerContainer: {
-    backgroundColor: 'black',
     borderRadius: 10,
     padding: 20,
     shadowColor: '#fff',
@@ -78,7 +77,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    color: 'green',
     marginBottom: 12,
     fontFamily: 'Roboto',
   },

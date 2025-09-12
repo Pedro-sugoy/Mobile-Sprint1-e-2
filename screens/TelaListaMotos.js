@@ -4,11 +4,12 @@ import React, { useCallback, useState } from 'react';
 import { FlatList, SafeAreaView, StyleSheet, Text } from 'react-native';
 import MotoCard from '../src/components/CardMoto'; 
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../src/context/ThemeContext'; 
 
 export default function TelaListaMotos() {
   const [motos, setMotos] = useState([]);
-
-  const {t} = useTranslation()
+  const { t } = useTranslation();
+  const { colors } = useTheme(); 
 
   const carregarMotos = async () => {
     const motosSalvas = await AsyncStorage.getItem('motos');
@@ -23,8 +24,8 @@ export default function TelaListaMotos() {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>{t("Lista de Motos")}🛵</Text>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+      <Text style={[styles.title, { color: colors.text }]}>{t("Lista de Motos")}🛵</Text>
       <FlatList
         data={motos}
         keyExtractor={(item) => item.placa}
@@ -45,14 +46,12 @@ export default function TelaListaMotos() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
     paddingTop: 20,
     paddingHorizontal: 20,
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: 'green',
     textAlign: 'center',
     marginBottom: 20,
   },
