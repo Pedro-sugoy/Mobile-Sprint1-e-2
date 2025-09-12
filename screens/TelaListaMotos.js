@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
 import { FlatList, SafeAreaView, StyleSheet, Text } from 'react-native';
-import MotoCard from '../components/CardMoto'; 
+import MotoCard from '../src/components/CardMoto'; 
 
 export default function TelaListaMotos() {
   const [motos, setMotos] = useState([]);
