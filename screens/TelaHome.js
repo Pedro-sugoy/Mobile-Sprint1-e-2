@@ -1,9 +1,11 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import i18n from '../src/services/i18n';
 import { useTheme } from '../src/context/ThemeContext';
 import ThemeToggleButton from '../src/components/ThemeToggleButton';
+import { auth } from '../src/firebase/firebaseConfig';
+import { signOut } from 'firebase/auth';
 
 export default function HomeScreen({ navigation }) {
   const { t } = useTranslation();
@@ -14,16 +16,34 @@ export default function HomeScreen({ navigation }) {
     i18n.changeLanguage(newLang);
   };
 
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
+    } catch (error) {
+      console.log("Erro ao deslogar:", error);
+      Alert.alert("Erro", "Não foi possível sair da conta.");
+    }
+  };
+
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <View style={styles.topButtons}>
-        <TouchableOpacity style={styles.langButton} onPress={toggleLanguage}>
-          <Text style={styles.langButtonText}>
-            🌐 {i18n.language.toUpperCase()}
-          </Text>
+      
+      {/* Botões do topo */}
+      <View style={styles.topContainer}>
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+          <Text style={styles.logoutButtonText}>🚪</Text>
         </TouchableOpacity>
 
-        <ThemeToggleButton />
+        <View style={styles.rightButtons}>
+          <TouchableOpacity style={styles.langButton} onPress={toggleLanguage}>
+            <Text style={styles.langButtonText}>
+              🌐 {i18n.language.toUpperCase()}
+            </Text>
+          </TouchableOpacity>
+
+          <ThemeToggleButton />
+        </View>
       </View>
 
       <Image 
@@ -81,13 +101,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
   },
-  topButtons: {
+  topContainer: {
     position: 'absolute',
     top: 40,
+    left: 20,
     right: 20,
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    gap: 10, 
+  },
+  logoutButton: {
+    backgroundColor: '#FF5555',
+    padding: 6,
+    borderRadius: 6,
+  },
+  logoutButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  rightButtons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
   },
   langButton: {
     backgroundColor: '#4CAF50',
