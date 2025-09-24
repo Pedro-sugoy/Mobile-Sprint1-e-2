@@ -1,20 +1,25 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
-import { FlatList, SafeAreaView, StyleSheet, Text } from 'react-native';
-import MotoCard from '../src/components/CardMoto'; 
+import { FlatList, SafeAreaView, StyleSheet, Text, Alert } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import MotoCard from '../src/components/CardMoto';
 import { useTranslation } from 'react-i18next';
-import { useTheme } from '../src/context/ThemeContext'; 
+import { useTheme } from '../src/context/ThemeContext';
 
 export default function TelaListaMotos() {
   const [motos, setMotos] = useState([]);
   const { t } = useTranslation();
-  const { colors } = useTheme(); 
+  const { colors } = useTheme();
 
   const carregarMotos = async () => {
-    const motosSalvas = await AsyncStorage.getItem('motos');
-    const lista = motosSalvas ? JSON.parse(motosSalvas) : [];
-    setMotos(lista);
+    try {
+      const response = await fetch('https://mottufind-c.onrender.com/api/Moto');
+      if (!response.ok) throw new Error('Erro ao buscar motos');
+      const data = await response.json();
+      setMotos(data);
+    } catch (error) {
+      console.error(error);
+      Alert.alert(t('Erro'), t('erroCarregarMotos'));
+    }
   };
 
   useFocusEffect(
@@ -28,13 +33,12 @@ export default function TelaListaMotos() {
       <Text style={[styles.title, { color: colors.text }]}>{t("Lista de Motos")}🛵</Text>
       <FlatList
         data={motos}
-        keyExtractor={(item) => item.placa}
+        keyExtractor={(item) => item.placa} // corrigido: placa é única
         renderItem={({ item }) => (
           <MotoCard
-            modelo={item.modelo}
-            placa={item.placa}
-            status={item.status}
-            onDelete={carregarMotos} 
+            moto={item}
+            onDelete={carregarMotos}
+            onUpdate={carregarMotos}
           />
         )}
         contentContainerStyle={styles.list}
