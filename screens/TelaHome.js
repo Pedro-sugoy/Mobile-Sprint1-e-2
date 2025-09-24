@@ -65,13 +65,6 @@ export default function HomeScreen({ navigation }) {
 
       <TouchableOpacity
         style={[styles.button, { backgroundColor: colors.button }]}
-        onPress={() => navigation.navigate('Cadastro')}
-      >
-        <Text style={[styles.buttonText, { color: colors.buttonText }]}>{t("Cadastro")}</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={[styles.button, { backgroundColor: colors.button }]}
         onPress={() => navigation.navigate('Cadastro de Moto')}
       >
         <Text style={[styles.buttonText, { color: colors.buttonText }]}>{t("Cadastrar Moto")}</Text>

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native'
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { auth } from '../src/firebase/firebaseConfig' // ajuste conforme o seu caminho real
+import { auth } from '../src/firebase/firebaseConfig'
 import { useTheme } from '../src/context/ThemeContext'
 import { useTranslation } from 'react-i18next'
 import { useNavigation } from '@react-navigation/native'
@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native'
 export default function Cadastro() {
   const { colors } = useTheme()
   const { t } = useTranslation()
-  const navigation = useNavigation() // sem <any>, compatível com JS
+  const navigation = useNavigation()
 
   const [nome, setNome] = useState('')
   const [email, setEmail] = useState('')
@@ -37,7 +37,6 @@ export default function Cadastro() {
 
       Alert.alert(t('Sucesso'), t('Cadastro realizado com sucesso!'))
 
-      // Redireciona para Login sem RESET (evita warning)
       navigation.navigate('Login')
     } catch (error) {
       console.log(error.code, error.message)
@@ -47,14 +46,14 @@ export default function Cadastro() {
     }
   }
 
-  const s = makeStyles(colors)
+  const s = makeStyles(colors, loading)
 
   return (
     <View style={s.container}>
       <Text style={s.title}>{t('Criar Cadastro')}</Text>
 
       <View style={s.inputWrap}>
-        <Feather name="user" size={18} color={colors.primary} />
+        <Feather name="user" size={18} color={colors.button} />
         <TextInput
           placeholder={t('Nome')}
           value={nome}
@@ -65,7 +64,7 @@ export default function Cadastro() {
       </View>
 
       <View style={s.inputWrap}>
-        <Feather name="mail" size={18} color={colors.primary} />
+        <Feather name="mail" size={18} color={colors.button} />
         <TextInput
           placeholder={t('Email')}
           value={email}
@@ -78,7 +77,7 @@ export default function Cadastro() {
       </View>
 
       <View style={s.inputWrap}>
-        <MaterialCommunityIcons name="lock-outline" size={18} color={colors.primary} />
+        <MaterialCommunityIcons name="lock-outline" size={18} color={colors.button} />
         <TextInput
           placeholder={t('Senha')}
           value={senha}
@@ -88,37 +87,70 @@ export default function Cadastro() {
           secureTextEntry={!showSenha}
         />
         <TouchableOpacity onPress={() => setShowSenha(v => !v)} style={s.iconBtn}>
-          <Feather name={showSenha ? 'eye' : 'eye-off'} size={18} color={colors.primary} />
+          <Feather name={showSenha ? 'eye' : 'eye-off'} size={18} color={colors.button} />
         </TouchableOpacity>
       </View>
 
       <TouchableOpacity
-        style={[s.button, loading && { opacity: 0.7 }]}
+        style={s.button}
         onPress={handleCadastro}
         disabled={loading}
       >
-        <Feather name="user-check" size={18} color={colors.bg} />
+        <Feather name="user-check" size={18} color={colors.buttonText} />
         <Text style={s.buttonTxt}>{loading ? t('Cadastrando...') : t('Cadastrar')}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate('Login')} style={s.linkRow}>
-        <Feather name="log-in" size={16} color={colors.primary} />
+        <Feather name="log-in" size={16} color={colors.button} />
         <Text style={s.link}>{t('Já possui uma conta? Entrar')}</Text>
       </TouchableOpacity>
     </View>
   )
 }
 
-function makeStyles(colors) {
+function makeStyles(colors, loading) {
   return StyleSheet.create({
-    container: { flex: 1, backgroundColor: colors.bg, paddingHorizontal: 16, paddingBottom: 16, justifyContent: 'center' },
+    container: {
+      flex: 1,
+      backgroundColor: colors.background,
+      paddingHorizontal: 16,
+      paddingBottom: 16,
+      justifyContent: 'center',
+    },
     title: { color: colors.text, fontSize: 22, fontWeight: '800', marginBottom: 20 },
-    inputWrap: { height: 48, flexDirection: 'row', alignItems: 'center', backgroundColor: colors.bg, borderRadius: 10, borderWidth: 1, borderColor: colors.card, paddingHorizontal: 12, gap: 8, marginBottom: 10 },
+    inputWrap: {
+      height: 48,
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: colors.inputBackground,
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: colors.inputBorder,
+      paddingHorizontal: 12,
+      gap: 8,
+      marginBottom: 10,
+    },
     input: { flex: 1, color: colors.text },
     iconBtn: { padding: 4 },
-    button: { height: 48, borderRadius: 10, backgroundColor: colors.primary, alignItems: 'center', justifyContent: 'center', flexDirection: 'row', gap: 8, marginTop: 10 },
-    buttonTxt: { color: colors.bg, fontWeight: '700' },
-    linkRow: { flexDirection: 'row', alignItems: 'center', gap: 6, alignSelf: 'center', marginTop: 12 },
-    link: { color: colors.primary, fontWeight: '700' }
+    button: {
+      height: 48,
+      borderRadius: 10,
+      backgroundColor: colors.button,
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      gap: 8,
+      marginTop: 10,
+      opacity: loading ? 0.7 : 1,
+    },
+    buttonTxt: { color: colors.buttonText, fontWeight: '700' },
+    linkRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 6,
+      alignSelf: 'center',
+      marginTop: 12,
+    },
+    link: { color: colors.button, fontWeight: '700' },
   })
 }

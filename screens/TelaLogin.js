@@ -34,7 +34,6 @@ export default function TelaLogin() {
 
       Alert.alert("Sucesso", t("Login realizado com sucesso!"));
 
-      // Redireciona para TelaHome e limpa histórico de navegação
       navigation.reset({ index: 0, routes: [{ name: 'Home' }] });
 
     } catch (error) {
@@ -59,12 +58,15 @@ export default function TelaLogin() {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.bg }]}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Text style={[styles.title, { color: colors.text }]}>{t("Login")} 🔐</Text>
 
-      <View style={styles.formContainer}>
+      <View style={[styles.formContainer, { backgroundColor: colors.inputBackground }]}>
         <TextInput
-          style={[styles.input, { borderColor: colors.text, color: colors.text }]}
+          style={[
+            styles.input,
+            { borderColor: colors.inputBorder, color: colors.text, backgroundColor: colors.inputBackground }
+          ]}
           placeholder={t("Email")}
           placeholderTextColor="gray"
           keyboardType="email-address"
@@ -73,7 +75,10 @@ export default function TelaLogin() {
           onChangeText={setEmail}
         />
         <TextInput
-          style={[styles.input, { borderColor: colors.text, color: colors.text }]}
+          style={[
+            styles.input,
+            { borderColor: colors.inputBorder, color: colors.text, backgroundColor: colors.inputBackground }
+          ]}
           placeholder={t("Senha")}
           placeholderTextColor="gray"
           secureTextEntry
@@ -91,7 +96,7 @@ export default function TelaLogin() {
 
         <TouchableOpacity
           style={[styles.button, { backgroundColor: colors.button }]}
-          onPress={() => navigation.navigate('Cadastro')}
+          onPress={() => navigation.navigate('Criar Cadastro')}
         >
           <Text style={[styles.buttonText, { color: colors.buttonText }]}>{t("Criar Conta")}</Text>
         </TouchableOpacity>
@@ -103,8 +108,24 @@ export default function TelaLogin() {
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 20 },
   title: { fontSize: 28, fontWeight: 'bold', marginBottom: 30, textTransform: 'uppercase' },
-  formContainer: { borderRadius: 10, padding: 20, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.1, shadowRadius: 6, elevation: 6, width: '100%', maxWidth: 400 },
-  input: { borderWidth: 1, borderRadius: 8, padding: 12, marginBottom: 15, fontSize: 16 },
+  formContainer: {
+    borderRadius: 10,
+    padding: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 6,
+    width: '100%',
+    maxWidth: 400,
+  },
+  input: {
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 15,
+    fontSize: 16,
+  },
   button: { borderRadius: 8, padding: 15, alignItems: 'center', marginTop: 10 },
   buttonText: { fontWeight: 'bold', fontSize: 18, textTransform: 'uppercase' },
 });
