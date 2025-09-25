@@ -67,9 +67,9 @@ export default function TelaCadastroMoto() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           placa: placa.toUpperCase(),
-          modelo: modelo.toUpperCase(),
+          modelo: modelo.toUpperCase(),   // Enum válido
           marca: marca,
-          status: status.toUpperCase(),
+          status: status.toUpperCase(),   // Enum válido
           patioId: patioId
         })
       });
@@ -156,10 +156,9 @@ export default function TelaCadastroMoto() {
           style={{ color: status ? colors.text : 'gray' }}
         >
           <Picker.Item label={t("Selecione um status")} value="" />
-          <Picker.Item label={t("Ligado")} value="LIGADO" />
-          <Picker.Item label={t("Desligado")} value="DESLIGADO" />
           <Picker.Item label={t("Manutenção")} value="MANUTENCAO" />
           <Picker.Item label={t("Disponível")} value="DISPONIVEL" />
+          <Picker.Item label={t("Indisponível")} value="INDISPONIVEL" />
         </Picker>
       </View>
 
@@ -173,8 +172,8 @@ export default function TelaCadastroMoto() {
         >
           <Picker.Item label={t("Selecione um modelo")} value="" />
           <Picker.Item label={t("Moto Sport")} value="SPORT" />
-          <Picker.Item label={t("Moto E")} value="E" />
           <Picker.Item label={t("Moto Pop")} value="POP" />
+          <Picker.Item label={t("Moto Elétrica")} value="ELETRICA" />
         </Picker>
       </View>
 
