@@ -1,7 +1,5 @@
-// Cadastro.js
 import React, { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native'
-import { Feather, MaterialCommunityIcons } from '@expo/vector-icons'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { auth } from '../src/firebase/firebaseConfig'
 import { useTheme } from '../src/context/ThemeContext'
@@ -53,7 +51,6 @@ export default function Cadastro() {
       <Text style={s.title}>{t('Criar Cadastro')}</Text>
 
       <View style={s.inputWrap}>
-        <Feather name="user" size={18} color={colors.button} />
         <TextInput
           placeholder={t('Nome')}
           value={nome}
@@ -64,7 +61,6 @@ export default function Cadastro() {
       </View>
 
       <View style={s.inputWrap}>
-        <Feather name="mail" size={18} color={colors.button} />
         <TextInput
           placeholder={t('Email')}
           value={email}
@@ -77,7 +73,6 @@ export default function Cadastro() {
       </View>
 
       <View style={s.inputWrap}>
-        <MaterialCommunityIcons name="lock-outline" size={18} color={colors.button} />
         <TextInput
           placeholder={t('Senha')}
           value={senha}
@@ -87,7 +82,6 @@ export default function Cadastro() {
           secureTextEntry={!showSenha}
         />
         <TouchableOpacity onPress={() => setShowSenha(v => !v)} style={s.iconBtn}>
-          <Feather name={showSenha ? 'eye' : 'eye-off'} size={18} color={colors.button} />
         </TouchableOpacity>
       </View>
 
@@ -96,12 +90,10 @@ export default function Cadastro() {
         onPress={handleCadastro}
         disabled={loading}
       >
-        <Feather name="user-check" size={18} color={colors.buttonText} />
         <Text style={s.buttonTxt}>{loading ? t('Cadastrando...') : t('Cadastrar')}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate('Login')} style={s.linkRow}>
-        <Feather name="log-in" size={16} color={colors.button} />
         <Text style={s.link}>{t('Já possui uma conta? Entrar')}</Text>
       </TouchableOpacity>
     </View>

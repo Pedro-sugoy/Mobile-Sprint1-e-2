@@ -33,7 +33,7 @@ export default function TelaListaMotos() {
       <Text style={[styles.title, { color: colors.text }]}>{t("Lista de Motos")}🛵</Text>
       <FlatList
         data={motos}
-        keyExtractor={(item) => item.placa} // corrigido: placa é única
+        keyExtractor={(item) => item.placa} 
         renderItem={({ item }) => (
           <MotoCard
             moto={item}

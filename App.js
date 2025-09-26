@@ -20,7 +20,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Login"
-          screenOptions={{ headerShown: false }} // remove o header de todas as telas
+          screenOptions={{ headerShown: false }} 
         >
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Desenvolvedores" component={DesenvolvedoresScreen} />

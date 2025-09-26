@@ -17,7 +17,6 @@ export default function MotoCard({ moto, onDelete, onUpdate }) {
     }
   };
 
-  // DELETE MOTO
   const handleDeleteMoto = async () => {
     try {
       const response = await fetch(
@@ -38,14 +37,13 @@ export default function MotoCard({ moto, onDelete, onUpdate }) {
     }
   };
 
-  // UPDATE STATUS
   const handleUpdateStatus = async () => {
     try {
       const body = {
         placa: moto.placa,
         modelo: moto.modelo,
         marca: moto.marca,
-        status: status.toUpperCase(), // Enum válido
+        status: status.toUpperCase(), 
         patioId: moto.patioId,
       };
 

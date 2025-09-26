@@ -33,7 +33,6 @@ export default function TelaCadastroMoto() {
         return;
       }
 
-      // 1️⃣ Criar filial
       const filialResponse = await fetch("https://mottufind-c.onrender.com/api/Filial", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -47,7 +46,6 @@ export default function TelaCadastroMoto() {
       const filialData = await filialResponse.json();
       const filialId = filialData.id;
 
-      // 2️⃣ Criar pátio
       const patioResponse = await fetch("https://mottufind-c.onrender.com/api/Patio", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -61,15 +59,14 @@ export default function TelaCadastroMoto() {
       const patioData = await patioResponse.json();
       const patioId = patioData.id;
 
-      // 3️⃣ Criar moto
       const motoResponse = await fetch("https://mottufind-c.onrender.com/api/Moto", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           placa: placa.toUpperCase(),
-          modelo: modelo.toUpperCase(),   // Enum válido
+          modelo: modelo.toUpperCase(),   
           marca: marca,
-          status: status.toUpperCase(),   // Enum válido
+          status: status.toUpperCase(),   
           patioId: patioId
         })
       });
@@ -97,7 +94,6 @@ export default function TelaCadastroMoto() {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Text style={[styles.title, { color: colors.text }]}>{t("Cadastrar Nova Moto")}🏍️</Text>
 
-      {/* Placa */}
       <TextInput
         placeholder={t("placeholderPlaca")}
         placeholderTextColor="gray"
@@ -108,7 +104,6 @@ export default function TelaCadastroMoto() {
         autoCapitalize="characters"
       />
 
-      {/* Marca */}
       <Text style={[styles.label, { color: colors.text }]}>{t("Marca")}</Text>
       <TextInput
         placeholder={t("Digite a marca")}
@@ -118,7 +113,6 @@ export default function TelaCadastroMoto() {
         style={[styles.input, { backgroundColor: colors.inputBackground, borderColor: colors.inputBorder, color: colors.text }]}
       />
 
-      {/* Filial */}
       <Text style={[styles.label, { color: colors.text }]}>{t("Cidade da Filial")}</Text>
       <TextInput
         placeholder={t("Digite a cidade")}
@@ -137,7 +131,6 @@ export default function TelaCadastroMoto() {
         style={[styles.input, { backgroundColor: colors.inputBackground, borderColor: colors.inputBorder, color: colors.text }]}
       />
 
-      {/* Pátio */}
       <Text style={[styles.label, { color: colors.text }]}>{t("Nome do Pátio")}</Text>
       <TextInput
         placeholder={t("Digite o nome do pátio")}
@@ -147,7 +140,6 @@ export default function TelaCadastroMoto() {
         style={[styles.input, { backgroundColor: colors.inputBackground, borderColor: colors.inputBorder, color: colors.text }]}
       />
 
-      {/* Status */}
       <Text style={[styles.label, { color: colors.text }]}>{t("Status")}</Text>
       <View style={[styles.pickerContainer, { backgroundColor: colors.inputBackground, borderColor: colors.inputBorder }]}>
         <Picker
@@ -162,7 +154,6 @@ export default function TelaCadastroMoto() {
         </Picker>
       </View>
 
-      {/* Modelo */}
       <Text style={[styles.label, { color: colors.text }]}>{t("Modelo")}</Text>
       <View style={[styles.pickerContainer, { backgroundColor: colors.inputBackground, borderColor: colors.inputBorder }]}>
         <Picker
