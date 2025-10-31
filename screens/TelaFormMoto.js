@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import * as Notifications from 'expo-notifications';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../src/context/ThemeContext';
 
@@ -73,9 +74,19 @@ export default function TelaCadastroMoto() {
 
       if (!motoResponse.ok) throw new Error("Erro ao criar moto");
 
+      // ✅ Mostra alerta normal
       Alert.alert(t('Sucesso'), t('motoCadastrada'));
 
-      // Reset campos
+      // ✅ Envia notificação push local
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "🏍️ Moto criada com sucesso!",
+          body: `Placa ${placa.toUpperCase()} foi cadastrada.`,
+        },
+        trigger: null, // dispara imediatamente
+      });
+
+      // Limpar campos
       setPlaca('');
       setStatus('');
       setModelo('');
@@ -92,7 +103,7 @@ export default function TelaCadastroMoto() {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.text }]}>{t("Cadastrar Nova Moto")}🏍️</Text>
+      <Text style={[styles.title, { color: colors.text }]}>{t("Cadastrar Nova Moto")} 🏍️</Text>
 
       <TextInput
         placeholder={t("placeholderPlaca")}
@@ -168,7 +179,6 @@ export default function TelaCadastroMoto() {
         </Picker>
       </View>
 
-      {/* Botão */}
       <TouchableOpacity style={[styles.button, { backgroundColor: colors.button }]} onPress={salvarMoto}>
         <Text style={[styles.buttonText, { color: colors.buttonText }]}>{t("Salvar Moto")}</Text>
       </TouchableOpacity>
@@ -177,41 +187,11 @@ export default function TelaCadastroMoto() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 30,
-  },
-  input: {
-    borderWidth: 1,
-    borderRadius: 8,
-    padding: 15,
-    marginBottom: 15,
-    fontSize: 16,
-  },
-  pickerContainer: {
-    borderWidth: 1,
-    borderRadius: 8,
-    marginBottom: 15,
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 5,
-  },
-  button: {
-    borderRadius: 8,
-    padding: 15,
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  buttonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
+  container: { flex: 1, padding: 20, justifyContent: 'center' },
+  title: { fontSize: 28, fontWeight: 'bold', textAlign: 'center', marginBottom: 30 },
+  input: { borderWidth: 1, borderRadius: 8, padding: 15, marginBottom: 15, fontSize: 16 },
+  pickerContainer: { borderWidth: 1, borderRadius: 8, marginBottom: 15 },
+  label: { fontSize: 16, marginBottom: 5 },
+  button: { borderRadius: 8, padding: 15, alignItems: 'center', marginTop: 20 },
+  buttonText: { fontSize: 18, fontWeight: 'bold' },
 });
