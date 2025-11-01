@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import * as Notifications from 'expo-notifications';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../src/context/ThemeContext';
 
@@ -65,26 +64,16 @@ export default function TelaCadastroMoto() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           placa: placa.toUpperCase(),
-          modelo: modelo.toUpperCase(),   
+          modelo: modelo.toUpperCase(),
           marca: marca,
-          status: status.toUpperCase(),   
+          status: status.toUpperCase(),
           patioId: patioId
         })
       });
 
       if (!motoResponse.ok) throw new Error("Erro ao criar moto");
 
-      // ✅ Mostra alerta normal
       Alert.alert(t('Sucesso'), t('motoCadastrada'));
-
-      // ✅ Envia notificação push local
-      await Notifications.scheduleNotificationAsync({
-        content: {
-          title: "🏍️ Moto criada com sucesso!",
-          body: `Placa ${placa.toUpperCase()} foi cadastrada.`,
-        },
-        trigger: null, // dispara imediatamente
-      });
 
       // Limpar campos
       setPlaca('');

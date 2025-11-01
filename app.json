@@ -32,6 +32,9 @@
         "googleWebClientId": "874434806636-n6husffcodfubuj4d3ggnjq0cbfalaae.apps.googleusercontent.com",
         "projectId": "08759a16-d360-4a8f-a77c-03942cd4c424"
       }
-    }
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }
