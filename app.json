@@ -18,23 +18,23 @@
     },
     "android": {
       "package": "com.seunome.cpmobilesrint1",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": ["INTERNET"]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "plugins": ["expo-font"],
     "extra": {
       "eas": {
-        "googleAndroidClientId": "874434806636-9nm6rae9hlt41oeo93btvou24ro1cp03.apps.googleusercontent.com",
-        "googleWebClientId": "874434806636-n6husffcodfubuj4d3ggnjq0cbfalaae.apps.googleusercontent.com",
         "projectId": "08759a16-d360-4a8f-a77c-03942cd4c424"
-      }
-    },
-    "plugins": [
-      "expo-font"
-    ]
+      },
+      "googleAndroidClientId": "874434806636-9nm6rae9hlt41oeo93btvou24ro1cp03.apps.googleusercontent.com",
+      "googleWebClientId": "874434806636-n6husffcodfubuj4d3ggnjq0cbfalaae.apps.googleusercontent.com"
+    }
   }
 }
